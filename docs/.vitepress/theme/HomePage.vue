@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
+import { useData, withBase } from 'vitepress'
 
 const { isDark, lang } = useData()
 const zh = lang.value?.startsWith('zh')
@@ -108,11 +108,11 @@ const prefix = zh ? '/zh' : '/en'
           }}
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" :href="`${prefix}/spicedb/getting-started/discovering-spicedb`">
+          <a class="btn btn-primary" :href="withBase(`${prefix}/spicedb/getting-started/discovering-spicedb`)">
             {{ zh ? '快速开始' : 'Get Started' }}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="btn btn-secondary" :href="`${prefix}/spicedb/concepts/zanzibar`">
+          <a class="btn btn-secondary" :href="withBase(`${prefix}/spicedb/concepts/zanzibar`)">
             {{ zh ? '核心概念' : 'Concepts' }}
           </a>
           <a class="btn btn-ghost" href="https://github.com/authzed/spicedb" target="_blank">
@@ -152,7 +152,7 @@ const prefix = zh ? '/zh' : '/en'
     <!-- Quick nav -->
     <section class="quick-nav">
       <div class="quick-nav-grid">
-        <a :href="`${prefix}/spicedb/getting-started/discovering-spicedb`" class="nav-card">
+        <a :href="withBase(`${prefix}/spicedb/getting-started/discovering-spicedb`)" class="nav-card">
           <div class="nav-card-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </div>
@@ -160,7 +160,7 @@ const prefix = zh ? '/zh' : '/en'
           <p>{{ zh ? '从零开始了解和部署 SpiceDB' : 'Learn and deploy SpiceDB from scratch' }}</p>
           <span class="nav-arrow">&rarr;</span>
         </a>
-        <a :href="`${prefix}/spicedb/modeling/developing-a-schema`" class="nav-card">
+        <a :href="withBase(`${prefix}/spicedb/modeling/developing-a-schema`)" class="nav-card">
           <div class="nav-card-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </div>
@@ -168,7 +168,7 @@ const prefix = zh ? '/zh' : '/en'
           <p>{{ zh ? '设计和开发你的权限 Schema' : 'Design and develop your permission schema' }}</p>
           <span class="nav-arrow">&rarr;</span>
         </a>
-        <a :href="`${prefix}/spicedb/ops/operator`" class="nav-card">
+        <a :href="withBase(`${prefix}/spicedb/ops/operator`)" class="nav-card">
           <div class="nav-card-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
           </div>
@@ -176,7 +176,7 @@ const prefix = zh ? '/zh' : '/en'
           <p>{{ zh ? '部署、监控和优化 SpiceDB 集群' : 'Deploy, monitor, and optimize SpiceDB clusters' }}</p>
           <span class="nav-arrow">&rarr;</span>
         </a>
-        <a :href="`${prefix}/spicedb/api/http-api`" class="nav-card">
+        <a :href="withBase(`${prefix}/spicedb/api/http-api`)" class="nav-card">
           <div class="nav-card-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
           </div>
