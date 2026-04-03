@@ -187,6 +187,9 @@ const prefix = zh ? '/zh' : '/en'
       </div>
     </section>
 
+    <!-- Community -->
+    <CommunitySection />
+
     <!-- Footer note -->
     <section class="home-footer-note">
       <p>

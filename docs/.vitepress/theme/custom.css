@@ -465,6 +465,206 @@
   text-decoration: underline;
 }
 
+/* ============================================================
+   CommunitySection.vue styles
+   ============================================================ */
+
+.community-section {
+  padding: 0 var(--page-gutter) 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* ---------- Discord card ---------- */
+.discord-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #5865F2 0%, #7B68EE 50%, #9B59B6 100%);
+  padding: 48px 40px;
+  color: #fff;
+}
+
+.discord-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  left: var(--x);
+  top: var(--y);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: float var(--duration) var(--delay) ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(20px, -30px) scale(1.5);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-10px, -60px) scale(1);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translate(15px, -20px) scale(1.3);
+    opacity: 0.5;
+  }
+}
+
+.discord-content {
+  position: relative;
+  z-index: 1;
+}
+
+.discord-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  margin-bottom: 20px;
+  animation: gentle-bounce 3s ease-in-out infinite;
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.discord-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.discord-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 500px;
+  margin-bottom: 24px;
+}
+
+.discord-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.discord-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Contributors ---------- */
+.contributors-area {
+  text-align: center;
+}
+
+.contributors-area h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.contributors-sub {
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+  margin-bottom: 32px;
+}
+
+.contributors-flow {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  padding: 8px 0;
+}
+
+.flow-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: scroll-flow 40s linear infinite;
+}
+
+.flow-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-flow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.contributor-bubble {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contributor-bubble img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--vp-c-divider);
+  transition: all 0.3s ease;
+}
+
+.contributor-bubble:hover img {
+  border-color: var(--sp-pink);
+  transform: scale(1.2);
+  box-shadow: 0 4px 20px rgba(240, 84, 108, 0.3);
+}
+
+.bubble-name {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--vp-c-text-2);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.contributor-bubble:hover .bubble-name {
+  opacity: 1;
+}
+
 /* ===== Global doc improvements ===== */
 
 /* Code blocks in docs */
