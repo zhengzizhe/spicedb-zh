@@ -466,287 +466,254 @@
 }
 
 /* ============================================================
-   CommunitySection.vue — constellation layout
+   CommunitySection.vue styles
    ============================================================ */
 
 .community-section {
   padding: 40px var(--page-gutter) 0;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
-/* ---------- Constellation: text left + galaxy right ---------- */
-.constellation {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  min-height: 560px;
+/* ---------- Contributors: horizontal scroll ---------- */
+.contributors-area {
+  text-align: center;
+  margin-bottom: 48px;
 }
 
-@media (max-width: 860px) {
-  .constellation {
-    flex-direction: column;
-    min-height: auto;
-  }
+.contributors-area h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
-/* --- Left: text + discord portal --- */
-.constellation-text {
-  flex: 1;
-  min-width: 0;
-}
-
-.constellation-label {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--sp-pink);
-  margin-bottom: 12px;
-}
-
-.constellation-text h2 {
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.constellation-text > p {
-  font-size: 1rem;
-  line-height: 1.7;
+.contributors-sub {
+  font-size: 0.9rem;
   color: var(--vp-c-text-2);
-  max-width: 420px;
   margin-bottom: 32px;
 }
 
-/* Discord portal: concentric rings + icon */
-.discord-portal {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  text-decoration: none;
-  color: var(--vp-c-text-1);
-  margin-bottom: 16px;
-  padding: 12px 20px 12px 12px;
-  border-radius: 60px;
-  transition: all 0.35s ease;
+.contributors-flow {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  padding: 12px 0 28px;
+}
+
+.flow-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: scroll-flow 45s linear infinite;
+}
+
+.flow-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-flow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.contributor-bubble {
   position: relative;
-}
-
-.discord-portal:hover {
-  background: rgba(88, 101, 242, 0.08);
-}
-
-.dark .discord-portal:hover {
-  background: rgba(88, 101, 242, 0.15);
-}
-
-.portal-rings {
-  position: relative;
-  width: 56px;
-  height: 56px;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
-.portal-ring {
-  position: absolute;
+.contributor-bubble img {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  border: 1.5px solid rgba(88, 101, 242, 0.25);
+  border: 2px solid var(--vp-c-divider);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.ring-1 {
-  inset: 0;
-  animation: ring-breathe 3s ease-in-out infinite;
-}
-.ring-2 {
-  inset: -8px;
-  border-color: rgba(88, 101, 242, 0.15);
-  animation: ring-breathe 3s 0.5s ease-in-out infinite;
-}
-.ring-3 {
-  inset: -16px;
-  border-color: rgba(88, 101, 242, 0.08);
-  animation: ring-breathe 3s 1s ease-in-out infinite;
+.contributor-bubble:hover img {
+  border-color: var(--sp-pink);
+  transform: scale(1.25) translateY(-4px);
+  box-shadow: 0 8px 24px rgba(240, 84, 108, 0.3);
 }
 
-@keyframes ring-breathe {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.5; }
-}
-
-.portal-core {
+.bubble-name {
   position: absolute;
-  inset: 6px;
-  border-radius: 50%;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: var(--vp-c-text-2);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.contributor-bubble:hover .bubble-name {
+  opacity: 1;
+}
+
+/* ---------- Discord: organic blob decoration ---------- */
+.discord-deco {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .discord-deco {
+    justify-content: center;
+    padding-right: 0;
+  }
+}
+
+.discord-blob-link {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #5865F2, #7B68EE);
+  width: 180px;
+  height: 180px;
+  text-decoration: none;
   color: #fff;
-  box-shadow: 0 4px 20px rgba(88, 101, 242, 0.4);
-  transition: all 0.3s ease;
 }
 
-.discord-portal:hover .portal-core {
-  box-shadow: 0 6px 30px rgba(88, 101, 242, 0.6);
-  transform: scale(1.08);
+/* Morphing SVG blobs */
+.blob-svg {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  animation: blob-morph 8s ease-in-out infinite, blob-spin 20s linear infinite;
 }
 
-.portal-text {
-  font-weight: 600;
-  font-size: 0.95rem;
+.blob-svg-2 {
+  animation: blob-morph-2 8s ease-in-out infinite, blob-spin-reverse 25s linear infinite;
 }
 
-/* GitHub link */
-.github-link {
-  display: inline-flex;
+@keyframes blob-morph {
+  0%, 100% { transform: scale(1); }
+  33% { transform: scale(1.05) rotate(2deg); }
+  66% { transform: scale(0.95) rotate(-2deg); }
+}
+
+@keyframes blob-morph-2 {
+  0%, 100% { transform: scale(1.1); }
+  50% { transform: scale(0.95); }
+}
+
+@keyframes blob-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blob-spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Floating petals */
+.petal {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.petal-1 {
+  width: 8px; height: 8px;
+  background: rgba(255, 180, 113, 0.6);
+  top: 10%; right: -5%;
+  animation: petal-drift 4s ease-in-out infinite;
+}
+
+.petal-2 {
+  width: 6px; height: 6px;
+  background: rgba(240, 84, 108, 0.5);
+  bottom: 15%; left: -8%;
+  animation: petal-drift 5s 1s ease-in-out infinite;
+}
+
+.petal-3 {
+  width: 10px; height: 10px;
+  background: rgba(88, 101, 242, 0.4);
+  top: -8%; left: 20%;
+  animation: petal-drift 6s 0.5s ease-in-out infinite;
+}
+
+.petal-4 {
+  width: 5px; height: 5px;
+  background: rgba(164, 49, 137, 0.5);
+  bottom: -5%; right: 15%;
+  animation: petal-drift 3.5s 1.5s ease-in-out infinite;
+}
+
+.petal-5 {
+  width: 7px; height: 7px;
+  background: rgba(255, 255, 255, 0.3);
+  top: 30%; left: -12%;
+  animation: petal-drift 5.5s 2s ease-in-out infinite;
+}
+
+@keyframes petal-drift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translate(12px, -18px) rotate(90deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-8px, -30px) rotate(180deg);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translate(6px, -12px) rotate(270deg);
+    opacity: 0.7;
+  }
+}
+
+/* Inner content */
+.discord-blob-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
-  font-size: 0.88rem;
-  color: var(--vp-c-text-2);
-  text-decoration: none;
-  transition: color 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
-.github-link:hover {
-  color: var(--vp-c-text-1);
+.discord-blob-link:hover .discord-blob-inner {
+  transform: scale(1.1);
 }
 
-/* --- Right: orbital galaxy --- */
-.orbit-galaxy {
-  position: relative;
-  width: 560px;
-  height: 560px;
-  flex-shrink: 0;
+.discord-icon-svg {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
-@media (max-width: 860px) {
-  .orbit-galaxy {
-    width: 340px;
-    height: 340px;
-    margin: 0 auto;
-  }
-  .orbit-galaxy .orbit-ring-1 { width: 140px; height: 140px; }
-  .orbit-galaxy .orbit-ring-2 { width: 230px; height: 230px; }
-  .orbit-galaxy .orbit-ring-3 { width: 310px; height: 310px; }
-  .orbit-galaxy .orbit-avatar {
-    --radius: calc(var(--radius) * 0.6) !important;
-    --size: calc(var(--size) * 0.75) !important;
-  }
+.discord-blob-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.02em;
 }
 
-/* Decorative orbit rings */
-.orbit-ring {
-  position: absolute;
-  border: 1px dashed var(--vp-c-divider);
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.5;
+/* Hover: speed up blob rotation */
+.discord-blob-link:hover .blob-svg {
+  animation-duration: 4s, 8s;
 }
 
-.orbit-ring-1 { width: 240px; height: 240px; }
-.orbit-ring-2 { width: 400px; height: 400px; }
-.orbit-ring-3 { width: 540px; height: 540px; }
-
-/* Center glow */
-.galaxy-core {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+.discord-blob-link:hover .blob-svg-2 {
+  animation-duration: 4s, 10s;
 }
 
-.core-glow {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(240, 84, 108, 0.3), rgba(164, 49, 137, 0.15), transparent 70%);
-  animation: core-pulse 3s ease-in-out infinite;
-}
-
-@keyframes core-pulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.4; }
-}
-
-.core-count {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--vp-c-bg);
-  border: 2px solid var(--sp-pink);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--sp-pink);
-  box-shadow: 0 0 24px rgba(240, 84, 108, 0.2);
-}
-
-/* Orbiting avatars */
-.orbit-avatar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--size);
-  height: var(--size);
-  margin-left: calc(var(--size) / -2);
-  margin-top: calc(var(--size) / -2);
-  animation: orbit var(--duration) linear var(--delay) infinite;
-}
-
-@keyframes orbit {
-  from {
-    transform:
-      rotate(var(--angle))
-      translateX(var(--radius))
-      rotate(calc(-1 * var(--angle)));
-  }
-  to {
-    transform:
-      rotate(calc(var(--angle) + 360deg))
-      translateX(var(--radius))
-      rotate(calc(-1 * (var(--angle) + 360deg)));
-  }
-}
-
-.orbit-avatar a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.orbit-avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2px solid var(--vp-c-bg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  object-fit: cover;
-}
-
-.dark .orbit-avatar img {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.orbit-avatar:hover img {
-  border-color: var(--sp-pink);
-  box-shadow: 0 0 20px rgba(240, 84, 108, 0.4);
-  transform: scale(1.3);
-  z-index: 10;
+/* Hover: petals scatter faster */
+.discord-blob-link:hover .petal {
+  animation-duration: 2s;
 }
 
 /* ===== Global doc improvements ===== */
