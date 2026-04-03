@@ -141,8 +141,22 @@ function sidebarApi(prefix: string, zh: boolean): DefaultTheme.SidebarItem[] {
   ]
 }
 
+function sidebarGuides(prefix: string, zh: boolean): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: zh ? '社区原创' : 'Community Guides',
+      items: [
+        { text: zh ? '五分钟理解 SpiceDB' : 'SpiceDB in 5 Minutes', link: `${prefix}/guides/quickstart-5min` },
+        { text: zh ? '核心概念图解' : 'Concepts Illustrated', link: `${prefix}/guides/concepts-visual` },
+        { text: zh ? 'SpiceDB vs Casbin' : 'SpiceDB vs Casbin', link: `${prefix}/guides/vs-casbin` },
+      ],
+    },
+  ]
+}
+
 function buildSidebar(prefix: string, zh: boolean): DefaultTheme.Sidebar {
   return {
+    [`${prefix}/guides/`]: sidebarGuides(prefix, zh),
     [`${prefix}/spicedb/getting-started/`]: sidebarGettingStarted(prefix, zh),
     [`${prefix}/spicedb/concepts/`]: sidebarConcepts(prefix, zh),
     [`${prefix}/spicedb/modeling/`]: sidebarModeling(prefix, zh),
@@ -172,6 +186,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: '首页', link: '/zh/' },
+          { text: '社区原创', link: '/zh/guides/quickstart-5min' },
           { text: '入门指南', link: '/zh/spicedb/getting-started/discovering-spicedb' },
           { text: '核心概念', link: '/zh/spicedb/concepts/zanzibar' },
           { text: '权限建模', link: '/zh/spicedb/modeling/developing-a-schema' },
@@ -206,6 +221,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
+          { text: 'Guides', link: '/en/guides/quickstart-5min' },
           { text: 'Getting Started', link: '/en/spicedb/getting-started/discovering-spicedb' },
           { text: 'Concepts', link: '/en/spicedb/concepts/zanzibar' },
           { text: 'Modeling', link: '/en/spicedb/modeling/developing-a-schema' },
