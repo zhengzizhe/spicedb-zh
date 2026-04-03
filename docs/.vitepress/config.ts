@@ -144,11 +144,19 @@ function sidebarApi(prefix: string, zh: boolean): DefaultTheme.SidebarItem[] {
 function sidebarGuides(prefix: string, zh: boolean): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: zh ? '社区原创' : 'Community Guides',
+      text: zh ? '快速理解' : 'Quick Understanding',
       items: [
         { text: zh ? '五分钟理解 SpiceDB' : 'SpiceDB in 5 Minutes', link: `${prefix}/guides/quickstart-5min` },
         { text: zh ? '核心概念图解' : 'Concepts Illustrated', link: `${prefix}/guides/concepts-visual` },
         { text: zh ? 'SpiceDB vs Casbin' : 'SpiceDB vs Casbin', link: `${prefix}/guides/vs-casbin` },
+      ],
+    },
+    {
+      text: zh ? '深度解析' : 'Deep Dives',
+      items: [
+        { text: zh ? '架构深度解析' : 'Architecture Deep Dive', link: `${prefix}/guides/architecture` },
+        { text: zh ? '一致性与缓存实战' : 'Consistency in Practice', link: `${prefix}/guides/consistency-in-practice` },
+        { text: zh ? '真实场景建模' : 'Real-World Examples', link: `${prefix}/guides/real-world-examples` },
       ],
     },
   ]
