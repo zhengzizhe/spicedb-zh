@@ -466,203 +466,287 @@
 }
 
 /* ============================================================
-   CommunitySection.vue styles
+   CommunitySection.vue — constellation layout
    ============================================================ */
 
 .community-section {
-  padding: 0 var(--page-gutter) 40px;
+  padding: 40px var(--page-gutter) 0;
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
 }
 
-/* ---------- Discord card ---------- */
-.discord-card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #5865F2 0%, #7B68EE 50%, #9B59B6 100%);
-  padding: 48px 40px;
-  color: #fff;
-}
-
-.discord-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.particle {
-  position: absolute;
-  width: var(--size);
-  height: var(--size);
-  left: var(--x);
-  top: var(--y);
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  animation: float var(--duration) var(--delay) ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translate(20px, -30px) scale(1.5);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(-10px, -60px) scale(1);
-    opacity: 0.2;
-  }
-  75% {
-    transform: translate(15px, -20px) scale(1.3);
-    opacity: 0.5;
-  }
-}
-
-.discord-content {
-  position: relative;
-  z-index: 1;
-}
-
-.discord-icon {
+/* ---------- Constellation: text left + galaxy right ---------- */
+.constellation {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  margin-bottom: 20px;
-  animation: gentle-bounce 3s ease-in-out infinite;
+  gap: 40px;
+  min-height: 560px;
 }
 
-@keyframes gentle-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+@media (max-width: 860px) {
+  .constellation {
+    flex-direction: column;
+    min-height: auto;
+  }
 }
 
-.discord-card h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
+/* --- Left: text + discord portal --- */
+.constellation-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.constellation-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sp-pink);
   margin-bottom: 12px;
 }
 
-.discord-card p {
+.constellation-text h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.constellation-text > p {
   font-size: 1rem;
-  line-height: 1.6;
-  opacity: 0.9;
-  max-width: 500px;
-  margin-bottom: 24px;
-}
-
-.discord-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.discord-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-/* ---------- Contributors ---------- */
-.contributors-area {
-  text-align: center;
-}
-
-.contributors-area h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.contributors-sub {
-  font-size: 0.9rem;
+  line-height: 1.7;
   color: var(--vp-c-text-2);
+  max-width: 420px;
   margin-bottom: 32px;
 }
 
-.contributors-flow {
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  padding: 8px 0;
-}
-
-.flow-track {
-  display: flex;
-  gap: 12px;
-  width: max-content;
-  animation: scroll-flow 40s linear infinite;
-}
-
-.flow-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes scroll-flow {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.contributor-bubble {
+/* Discord portal: concentric rings + icon */
+.discord-portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  margin-bottom: 16px;
+  padding: 12px 20px 12px 12px;
+  border-radius: 60px;
+  transition: all 0.35s ease;
   position: relative;
+}
+
+.discord-portal:hover {
+  background: rgba(88, 101, 242, 0.08);
+}
+
+.dark .discord-portal:hover {
+  background: rgba(88, 101, 242, 0.15);
+}
+
+.portal-rings {
+  position: relative;
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
+}
+
+.portal-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(88, 101, 242, 0.25);
+}
+
+.ring-1 {
+  inset: 0;
+  animation: ring-breathe 3s ease-in-out infinite;
+}
+.ring-2 {
+  inset: -8px;
+  border-color: rgba(88, 101, 242, 0.15);
+  animation: ring-breathe 3s 0.5s ease-in-out infinite;
+}
+.ring-3 {
+  inset: -16px;
+  border-color: rgba(88, 101, 242, 0.08);
+  animation: ring-breathe 3s 1s ease-in-out infinite;
+}
+
+@keyframes ring-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+}
+
+.portal-core {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
+  background: linear-gradient(135deg, #5865F2, #7B68EE);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(88, 101, 242, 0.4);
   transition: all 0.3s ease;
 }
 
-.contributor-bubble img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--vp-c-divider);
-  transition: all 0.3s ease;
+.discord-portal:hover .portal-core {
+  box-shadow: 0 6px 30px rgba(88, 101, 242, 0.6);
+  transform: scale(1.08);
 }
 
-.contributor-bubble:hover img {
-  border-color: var(--sp-pink);
-  transform: scale(1.2);
-  box-shadow: 0 4px 20px rgba(240, 84, 108, 0.3);
+.portal-text {
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
-.bubble-name {
-  position: absolute;
-  bottom: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.7rem;
+/* GitHub link */
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
   color: var(--vp-c-text-2);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.contributor-bubble:hover .bubble-name {
-  opacity: 1;
+.github-link:hover {
+  color: var(--vp-c-text-1);
+}
+
+/* --- Right: orbital galaxy --- */
+.orbit-galaxy {
+  position: relative;
+  width: 560px;
+  height: 560px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 860px) {
+  .orbit-galaxy {
+    width: 340px;
+    height: 340px;
+    margin: 0 auto;
+  }
+  .orbit-galaxy .orbit-ring-1 { width: 140px; height: 140px; }
+  .orbit-galaxy .orbit-ring-2 { width: 230px; height: 230px; }
+  .orbit-galaxy .orbit-ring-3 { width: 310px; height: 310px; }
+  .orbit-galaxy .orbit-avatar {
+    --radius: calc(var(--radius) * 0.6) !important;
+    --size: calc(var(--size) * 0.75) !important;
+  }
+}
+
+/* Decorative orbit rings */
+.orbit-ring {
+  position: absolute;
+  border: 1px dashed var(--vp-c-divider);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+}
+
+.orbit-ring-1 { width: 240px; height: 240px; }
+.orbit-ring-2 { width: 400px; height: 400px; }
+.orbit-ring-3 { width: 540px; height: 540px; }
+
+/* Center glow */
+.galaxy-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.core-glow {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 84, 108, 0.3), rgba(164, 49, 137, 0.15), transparent 70%);
+  animation: core-pulse 3s ease-in-out infinite;
+}
+
+@keyframes core-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.4; }
+}
+
+.core-count {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--vp-c-bg);
+  border: 2px solid var(--sp-pink);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sp-pink);
+  box-shadow: 0 0 24px rgba(240, 84, 108, 0.2);
+}
+
+/* Orbiting avatars */
+.orbit-avatar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2);
+  animation: orbit var(--duration) linear var(--delay) infinite;
+}
+
+@keyframes orbit {
+  from {
+    transform:
+      rotate(var(--angle))
+      translateX(var(--radius))
+      rotate(calc(-1 * var(--angle)));
+  }
+  to {
+    transform:
+      rotate(calc(var(--angle) + 360deg))
+      translateX(var(--radius))
+      rotate(calc(-1 * (var(--angle) + 360deg)));
+  }
+}
+
+.orbit-avatar a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--vp-c-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  object-fit: cover;
+}
+
+.dark .orbit-avatar img {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.orbit-avatar:hover img {
+  border-color: var(--sp-pink);
+  box-shadow: 0 0 20px rgba(240, 84, 108, 0.4);
+  transform: scale(1.3);
+  z-index: 10;
 }
 
 /* ===== Global doc improvements ===== */
